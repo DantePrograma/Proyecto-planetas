@@ -1,0 +1,65 @@
+@import url("https://fonts.cdnfonts.com/css/spartan");
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* background: url(../src/pages/assets/cieloestrellado.jpg) no-repeat center
+    center fixed; */
+  background-color: #070722;
+}
+
+.specialGrid {
+  min-height: 95vh;
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 2.2fr 1.2fr;
+  grid-template-areas:
+    "imagen planetInfo"
+    "imagen planetButtons"
+    "footer footer";
+
+  @media screen and (min-width: 1024px) {
+    padding-top: 50px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-inline: 40px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.5fr 0.7fr 0.4fr;
+    grid-template-areas:
+      "imagen imagen"
+      "planetInfo planetButtons"
+      "footer footer";
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.26fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "planetButtons"
+      "imagen"
+      "planetInfo"
+      "footer";
+  }
+}
+
+.imagen {
+  grid-area: imagen;
+}
+
+.planetInfo {
+  grid-area: planetInfo;
+}
+
+.planetButtons {
+  grid-area: planetButtons;
+}
+
+.footer {
+  grid-area: footer;
+}
