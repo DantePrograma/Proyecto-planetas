@@ -45,8 +45,7 @@ export const Planet = (props: PlanetProps) => {
 
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
   const [imageWidth, setImageWidth] = useState<string>(props.desktopImgWidth);
-
-  //jejej
+  const [geoImgWidth, setGeoImgWidth] = useState<string>("80px");
 
   useEffect(() => {
     const updateWindowWidth = () => {
@@ -59,13 +58,17 @@ export const Planet = (props: PlanetProps) => {
       }
 
       let imageWidthToSet = props.desktopImgWidth;
+      let geoImgWidthToSet = "160px";
       if (currentWindowWidth < 768) {
         imageWidthToSet = props.mobileImgWidth;
+        geoImgWidthToSet = "80px";
       } else if (currentWindowWidth < 1024) {
         imageWidthToSet = props.tabletImgWidth;
+        geoImgWidthToSet = "120px";
       }
 
       setImageWidth(imageWidthToSet);
+      setGeoImgWidth(geoImgWidthToSet);
     };
 
     updateWindowWidth();
@@ -91,7 +94,9 @@ export const Planet = (props: PlanetProps) => {
 
           {data === props.geology && (
             <img
-              className="h-auto w-40 absolute bottom-[-50px] "
+              height={"auto"}
+              width={geoImgWidth}
+              className="absolute bottom-[-50px] "
               src={props.geology.geo}
               alt={`${props.name} geology img`}
             />
@@ -99,11 +104,11 @@ export const Planet = (props: PlanetProps) => {
         </div>
       </article>
 
-      <article className="planetInfo flex flex-col md:justify-between lg:justify-end animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
-        <h1 className="md:text-5xl lg:text-7xl uppercase font-antonio lg:mb-10 ">
+      <article className="planetInfo mt-6 md:mt-0 px-6 md:px-0  text-center md:text-left flex flex-col gap-5 md:gap-0 md:justify-between lg:justify-end animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl uppercase font-antonio lg:mb-10 ">
           {props.name}
         </h1>
-        <p className="text-[#ACAEBC] lg:text-[14px] md:text-[11px] font-spartan leading-6 font-normal max-w-[500px] lg:min-h-[170px] ">
+        <p className="text-[#ACAEBC] text-[12px] lg:text-[14px] md:text-[11px] font-spartan leading-6 font-normal md:max-w-[500px] lg:min-h-[170px] ">
           {data.content}
         </p>
 
@@ -129,7 +134,7 @@ export const Planet = (props: PlanetProps) => {
       </article>
 
       <article className="md:flex md:justify-end lg:block planetButtons animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear border-b-slate-600 border-b-[1px] md:border-0">
-        <div className="flex justify-center md:flex-col md:w-72 lg:w-full md:justify-center text-[13px] md:text-[12px] lg:text-[17px] h-full md:gap-3 lg:gap-5 text-left text-[#ACAEBC] md:text-white">
+        <div className="flex justify-evenly md:flex-col md:w-72 lg:w-full md:justify-center text-[9px] md:text-[12px] lg:text-[17px] h-full md:gap-3 lg:gap-5 text-left text-[#ACAEBC] md:text-white">
           <button
             style={{
               backgroundColor:
@@ -143,7 +148,7 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['01'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 px-6 py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['01'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
             onClick={handleDataOverview}
           >
             OVERVIEW
@@ -161,10 +166,10 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['02'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 px-6 py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['02'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
             onClick={handleDataStructure}
           >
-            INTERNAL ESTRUCTURE
+            {windowWidth < 768 ? "STRUCTURE" : "INTERNAL ESTRUCTURE"}
           </button>
           <button
             style={{
@@ -179,45 +184,45 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['03'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 px-6 py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['03'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
             onClick={handleDataSurface}
           >
-            SURFACE GEOLOGY
+            {windowWidth < 768 ? "SURFACE" : "SURFACE GEOLOGY"}
           </button>
         </div>
       </article>
 
       <article className="footer animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
-        <div className="flex items-start justify-between gap-7 w-full">
-          <div className="md:p-4 lg:p-6 border-slate-600 border-[1px] w-full">
-            <h4 className="font-spartan text-[#ACAEBC] font-bold tracking-wider md:text-[9px] lg:text-[11px]">
+        <div className="flex flex-col px-6 md:px-0 md:flex-row items-start justify-between gap-2 md:gap-7 w-full">
+          <div className="md:p-4 lg:p-6 flex items-center md:items-start md:flex-col justify-between p-3 border-slate-600 border-[1px] w-full">
+            <h4 className="font-spartan text-[#ACAEBC] font-bold tracking-wider text-[13px] md:text-[9px] lg:text-[11px]">
               ROTATION TIME
             </h4>
-            <p className="md:text-[25px] lg:text-[35px] uppercase font-antonio">
+            <p className="text-[18px] md:text-[25px] lg:text-[35px] uppercase font-antonio">
               {props.rotation}
             </p>
           </div>
-          <div className="md:p-4 lg:p-6 border-slate-600 border-[1px] w-full">
-            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold md:text-[9px] lg:text-[11px]">
+          <div className="md:p-4 lg:p-6 flex items-center justify-between md:items-start md:flex-col p-3 border-slate-600 border-[1px] w-full">
+            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold text-[13px] md:text-[9px] lg:text-[11px]">
               REVOLUTION TIME
             </h4>
-            <p className="md:text-[25px] lg:text-[35px] uppercase font-antonio">
+            <p className="text-[18px] md:text-[25px] lg:text-[35px] uppercase font-antonio">
               {props.revolution}
             </p>
           </div>
-          <div className="md:p-4 lg:p-6 border-slate-600 border-[1px] w-full">
-            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold md:text-[9px] lg:text-[11px]">
+          <div className="md:p-4 lg:p-6 flex items-center justify-between md:items-start md:flex-col p-3 border-slate-600 border-[1px] w-full">
+            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold text-[13px] md:text-[9px] lg:text-[11px]">
               RADIUS
             </h4>
-            <p className="md:text-[25px] lg:text-[35px] uppercase font-antonio">
+            <p className="text-[18px] md:text-[25px] lg:text-[35px] uppercase font-antonio">
               {props.radius}
             </p>
           </div>
-          <div className="md:p-4 lg:p-6 border-slate-600 border-[1px] w-full">
-            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold md:text-[9px] lg:text-[11px]">
+          <div className="md:p-4 lg:p-6 flex items-center justify-between md:items-start md:flex-col p-3 border-slate-600 border-[1px] w-full">
+            <h4 className="font-spartan text-[#ACAEBC] tracking-wider font-bold text-[13px] md:text-[9px] lg:text-[11px]">
               AVERAGE TEMP.
             </h4>
-            <p className="md:text-[25px] lg:text-[35px] uppercase font-antonio">
+            <p className="text-[18px] md:text-[25px] lg:text-[35px] uppercase font-antonio">
               {props.temperature}
             </p>
           </div>
