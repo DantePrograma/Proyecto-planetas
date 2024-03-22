@@ -5,9 +5,17 @@
 @tailwind utilities;
 
 body {
-  /* background: url(../src/pages/assets/cieloestrellado.jpg) no-repeat center
-    center fixed; */
   background-color: #070722;
+}
+
+.overlay {
+  /* Superponer un fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semitransparente */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .specialGrid {
@@ -19,10 +27,6 @@ body {
     "imagen planetInfo"
     "imagen planetButtons"
     "footer footer";
-
-  @media screen and (min-width: 1024px) {
-    padding-top: 50px;
-  }
 
   @media screen and (min-width: 768px) {
     padding-inline: 40px;

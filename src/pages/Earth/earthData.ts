@@ -1,6 +1,6 @@
-import earthImage from "./assets/planet-earth.svg";
-import earthInternalImage from "./assets/planet-earth-internal.svg";
-import earthGeoImage from "./assets/planet-earth-geology.png";
+import earthImage from "../assets/planet-earth.svg";
+import earthInternalImage from "../assets/planet-earth-internal.svg";
+import earthGeoImage from "../assets/planet-earth-geology.png";
 
 export const earthData = {
   name: "Earth",

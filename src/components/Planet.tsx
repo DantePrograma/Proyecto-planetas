@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useReplaceInfo } from "../hooks/useReplaceInfo";
 
 interface PlanetProps {
   name: string;
@@ -29,62 +29,20 @@ interface PlanetProps {
 }
 
 export const Planet = (props: PlanetProps) => {
-  const [data, setData] = useState(props.overview);
-
-  const handleDataOverview = () => {
-    setData(props.overview);
-  };
-
-  const handleDataStructure = () => {
-    setData(props.structure);
-  };
-
-  const handleDataSurface = () => {
-    setData(props.geology);
-  };
-
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-  const [imageWidth, setImageWidth] = useState<string>(props.desktopImgWidth);
-  const [geoImgWidth, setGeoImgWidth] = useState<string>("80px");
-
-  useEffect(() => {
-    const updateWindowWidth = () => {
-      const currentWindowWidth = window.innerWidth;
-      setWindowWidth(currentWindowWidth);
-
-      if (currentWindowWidth === null) {
-        console.error("Window width is null");
-        return;
-      }
-
-      let imageWidthToSet = props.desktopImgWidth;
-      let geoImgWidthToSet = "160px";
-      if (currentWindowWidth < 768) {
-        imageWidthToSet = props.mobileImgWidth;
-        geoImgWidthToSet = "80px";
-      } else if (currentWindowWidth < 1024) {
-        imageWidthToSet = props.tabletImgWidth;
-        geoImgWidthToSet = "120px";
-      }
-
-      setImageWidth(imageWidthToSet);
-      setGeoImgWidth(geoImgWidthToSet);
-    };
-
-    updateWindowWidth();
-
-    window.addEventListener("resize", updateWindowWidth);
-
-    // Clean up event listener on unmount
-    return () => {
-      window.removeEventListener("resize", updateWindowWidth);
-    };
-  }, []);
+  const {
+    data,
+    handleDataOverview,
+    handleDataStructure,
+    handleDataSurface,
+    windowWidth,
+    imageWidth,
+    geoImgWidth,
+  } = useReplaceInfo(props);
 
   return (
     <section className="mx-auto max-w-6xl text-white specialGrid">
       <article className="imagen flex items-center justify-center animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
-        <div className="relative flex items-center justify-center flex-col ">
+        <div className="relative flex items-center justify-center flex-col lg:min-h-[630px] lg:max-h-[630px]">
           <img
             height={"auto"}
             width={imageWidth}
@@ -96,7 +54,7 @@ export const Planet = (props: PlanetProps) => {
             <img
               height={"auto"}
               width={geoImgWidth}
-              className="absolute bottom-[-50px] "
+              className="absolute bottom-[-15px]"
               src={props.geology.geo}
               alt={`${props.name} geology img`}
             />
@@ -104,7 +62,7 @@ export const Planet = (props: PlanetProps) => {
         </div>
       </article>
 
-      <article className="planetInfo mt-6 md:mt-0 px-6 md:px-0  text-center md:text-left flex flex-col gap-5 md:gap-0 md:justify-between lg:justify-end animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
+      <article className="planetInfo px-6 md:px-0 text-center md:text-left flex flex-col  md:gap-0 justify-between lg:justify-end animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
         <h1 className="text-3xl md:text-5xl lg:text-7xl uppercase font-antonio lg:mb-10 ">
           {props.name}
         </h1>
@@ -112,7 +70,7 @@ export const Planet = (props: PlanetProps) => {
           {data.content}
         </p>
 
-        <div className="flex gap-2 text-[#ACAEBC] text-[14px]">
+        <div className="flex justify-center items-center md:justify-start gap-2 text-[#ACAEBC] text-[14px]">
           <span>Source:</span>
           <a
             className="flex items-center gap-1 font-semibold underline"
@@ -134,13 +92,13 @@ export const Planet = (props: PlanetProps) => {
       </article>
 
       <article className="md:flex md:justify-end lg:block planetButtons animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear border-b-slate-600 border-b-[1px] md:border-0">
-        <div className="flex justify-evenly md:flex-col md:w-72 lg:w-full md:justify-center text-[9px] md:text-[12px] lg:text-[17px] h-full md:gap-3 lg:gap-5 text-left text-[#ACAEBC] md:text-white">
+        <div className="flex justify-evenly md:flex-col md:w-72 lg:w-full md:justify-center text-[14px] md:text-[12px] lg:text-[17px] h-full md:gap-3 lg:gap-5 text-left text-[#ACAEBC] md:text-white">
           <button
             style={{
               backgroundColor:
                 data === props.overview && windowWidth >= 768
                   ? props.sectionColor
-                  : "transparent",
+                  : "",
               color:
                 data === props.overview && windowWidth <= 768 ? "white" : "",
               borderBottom:
@@ -148,7 +106,7 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['01'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['01'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-2 md:px-6 md:py-[10px] font-antonio hover:bg-slate-600"
             onClick={handleDataOverview}
           >
             OVERVIEW
@@ -158,7 +116,7 @@ export const Planet = (props: PlanetProps) => {
               backgroundColor:
                 data === props.structure && windowWidth >= 768
                   ? props.sectionColor
-                  : "transparent",
+                  : "",
               color:
                 data === props.structure && windowWidth <= 768 ? "white" : "",
               borderBottom:
@@ -166,7 +124,7 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['02'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['02'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-2 md:px-6 md:py-[10px] font-antonio hover:bg-slate-600"
             onClick={handleDataStructure}
           >
             {windowWidth < 768 ? "STRUCTURE" : "INTERNAL ESTRUCTURE"}
@@ -176,7 +134,7 @@ export const Planet = (props: PlanetProps) => {
               backgroundColor:
                 data === props.geology && windowWidth >= 768
                   ? props.sectionColor
-                  : "transparent",
+                  : "",
               color:
                 data === props.geology && windowWidth <= 768 ? "white" : "",
               borderBottom:
@@ -184,7 +142,7 @@ export const Planet = (props: PlanetProps) => {
                   ? `4px solid ${props.sectionColor}`
                   : "",
             }}
-            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['03'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-3 md:px-6 md:py-[10px] font-antonio"
+            className="text-left md:border-slate-600 md:border-[1px] tracking-[0.15rem] md:before:font-bold md:before:content-['03'] md:before:pr-3 md:before:font-spartan md:before:mt-[5px] md:before:text-[13px] md:before:text-[#ACAEBC] font-normal transition duration-300 py-2 md:px-6 md:py-[10px] font-antonio hover:bg-slate-600"
             onClick={handleDataSurface}
           >
             {windowWidth < 768 ? "SURFACE" : "SURFACE GEOLOGY"}
@@ -192,7 +150,7 @@ export const Planet = (props: PlanetProps) => {
         </div>
       </article>
 
-      <article className="footer animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
+      <article className="pb-5 md:pb-0 footer animate-fade-right animate-once animate-duration-[500ms] animate-delay-[500ms] animate-ease-linear">
         <div className="flex flex-col px-6 md:px-0 md:flex-row items-start justify-between gap-2 md:gap-7 w-full">
           <div className="md:p-4 lg:p-6 flex items-center md:items-start md:flex-col justify-between p-3 border-slate-600 border-[1px] w-full">
             <h4 className="font-spartan text-[#ACAEBC] font-bold tracking-wider text-[13px] md:text-[9px] lg:text-[11px]">

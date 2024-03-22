@@ -11,7 +11,7 @@ import sunImg from "../pages/assets/sun.png";
 
 export const SolarSystem = () => {
   return (
-    <nav className="min-h-screen relative flex flex-col-reverse items-center justify-center gap-2 animate-once  animate-ease-in-out animate-fade  animate-duration-[4500ms] animate-delay-0 ">
+    <nav className="min-h-screen overflow-hidden relative flex flex-col-reverse items-center justify-center gap-2 animate-once  animate-ease-in-out animate-fade  animate-duration-[4500ms] animate-delay-0 ">
       <div className="">
         <img
           className="w-[85px] shadow-[0_0_10px_2px_rgba(255,107,0,0.4),_0_0_22px_11px_rgba(255,203,0,0.13)] rounded-full"

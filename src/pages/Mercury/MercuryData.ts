@@ -1,6 +1,6 @@
-import mercuryImage from "./assets/planet-mercury.svg";
-import mercuryInternalImage from "./assets/planet-mercury-internal.svg";
-import mercuryGeoImage from "./assets/planet-mercury-geology.png";
+import mercuryImage from "../assets/planet-mercury.svg";
+import mercuryInternalImage from "../assets/planet-mercury-internal.svg";
+import mercuryGeoImage from "../assets/planet-mercury-geology.png";
 
 export const mercuryData = {
   name: "Mercury",
